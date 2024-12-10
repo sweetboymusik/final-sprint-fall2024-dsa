@@ -34,7 +34,7 @@ public class TreeService {
         numbers.forEach(bst::insert);
 
         try {
-            String treeJson = objectMapper.writeValueAsString(bst.toMap());
+            String treeJson = objectMapper.writeValueAsString(bst.toTreeStructure());
 
             // Save to repository
             Tree treeEntity = new Tree();
