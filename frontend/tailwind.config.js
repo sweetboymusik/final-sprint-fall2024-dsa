@@ -1,9 +1,15 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
+import colors from "tailwindcss/colors";
 
+export const content = ["./src/**/*.{js,jsx,ts,tsx}"];
+export const theme = {
+  fontFamily: {
+    sans: ["Poppins"],
+  },
+  extend: {
+    colors: {
+      primary: colors.slate,
+    },
+  },
+};
+export const plugins = [];
