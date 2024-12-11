@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import SideBarItem from "./SideBarItem";
-import { FaHouse } from "react-icons/fa6";
+import { FaDiagramProject, FaHouse, FaPenToSquare } from "react-icons/fa6";
 import Logo from "./Logo";
 
 function SideBar() {
@@ -25,6 +25,21 @@ function SideBar() {
         active={isActive("/")}
       />
       <hr className="w-2/3 self-center" />
+
+      <SideBarItem
+        icon={<FaPenToSquare />}
+        label={"Add New Tree"}
+        to={"/enter-numbers"}
+        active={isActive("/enter-numbers")}
+      />
+      <hr className="w-2/3 self-center" />
+
+      <SideBarItem
+        icon={<FaDiagramProject />}
+        label={"View Trees"}
+        to={"/previous-trees"}
+        active={isActive("/previous-trees")}
+      />
     </div>
   );
 }
