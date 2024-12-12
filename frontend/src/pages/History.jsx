@@ -25,39 +25,31 @@ function History() {
     fetchTrees();
   }, []);
 
-  async function handleRemove(treeToRemove) {
-    try {
-      console.log("Tree to remove: ", treeToRemove);
-      await axios.delete(`http://localhost:8080/trees/${treeToRemove?.id}`);
-      setTrees(setTrees.filter((tree) => tree.id !== treeToRemove.id));
-    } catch (error) {
-      setError("Error deleting tree");
-      console.error(error);
-    }
-  }
+  useEffect(() => {
+    document.title = "All Trees";
+  }, []);
 
   return (
     <Page label={"All Trees"}>
-      <div className="flex justify-between gap-16 h-screen">
+      <div className="flex justify-between gap-16 h-full">
         <div className="flex flex-col gap-8 flex-1">
-          <h2>Previous Trees</h2>
+          <h2>Tree List</h2>
 
           {error && <p className="text-red-500">{error}</p>}
 
-          <div className="space-y-4">
+          <div className="flex flex-col gap-2 overflow-y-auto border rounded p-4 h-[800px]">
             {trees.map((tree, index) => (
               <PreviousTreeItem
                 key={tree.id}
                 tree={tree}
                 index={index}
                 onClick={setSelectedTree}
-                onRemove={handleRemove}
               />
             ))}
           </div>
         </div>
 
-        <div className="flex flex-col gap-8 flex-1 h-5/6">
+        <div className="flex flex-col gap-8 flex-1">
           <h2>Tree Visualization</h2>
           {selectedTree && (
             <div className="border rounded h-full">

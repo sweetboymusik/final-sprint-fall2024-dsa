@@ -20,7 +20,7 @@ const renderCustomNode = ({ nodeDatum, foreignObjectProps }) => (
       x="-60"
       rx="4"
       ry="4"
-      className="fill-primary-800 rounded border-none"
+      className="fill-primary-800 rounded border-none stroke-none stroke-0"
     />
 
     <foreignObject {...foreignObjectProps} className="">
