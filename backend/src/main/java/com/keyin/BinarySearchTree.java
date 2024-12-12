@@ -1,7 +1,9 @@
 package com.keyin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
@@ -24,7 +26,6 @@ public class BinarySearchTree {
         }
     }
 
-    // insert a value into the tree
     public void insert(int value) {
         root = insertRecursive(root, value);
     }
@@ -43,6 +44,36 @@ public class BinarySearchTree {
         return current;
     }
 
+    public List<Integer> inOrderTraversal() {
+        List<Integer> sortedList = new ArrayList<>();
+        inOrderTraversal(root, sortedList);
+        return sortedList;
+    }
+
+    private void inOrderTraversal(BinaryNode node, List<Integer> sortedList) {
+        if (node == null) {
+            return;
+        }
+        inOrderTraversal(node.left, sortedList);
+        sortedList.add(node.value);
+        inOrderTraversal(node.right, sortedList);
+    }
+
+    public void buildBalancedTree(List<Integer> sortedNumbers, int start, int end) {
+        root = buildBalancedTreeRecursive(sortedNumbers, start, end);
+    }
+
+    private BinaryNode buildBalancedTreeRecursive(List<Integer> sortedNumbers, int start, int end) {
+        if (start > end) {
+            return null;
+        }
+        int mid = (start + end) / 2;
+        BinaryNode node = new BinaryNode(sortedNumbers.get(mid));
+        node.left = buildBalancedTreeRecursive(sortedNumbers, start, mid - 1);
+        node.right = buildBalancedTreeRecursive(sortedNumbers, mid + 1, end);
+        return node;
+    }
+
     // preorder traversal
     public void preOrder(BinaryNode node) {
         if (node == null) {
@@ -55,7 +86,6 @@ public class BinarySearchTree {
         preOrder(node.right);
     }
 
-    // inorder traversal
     public void inOrder(BinaryNode node) {
         if (node == null) {
             return;
@@ -68,7 +98,6 @@ public class BinarySearchTree {
         inOrder(node.right);
     }
 
-    // postorder traversal
     public void postOrder(BinaryNode node) {
         if (node == null) {
             return;
@@ -80,7 +109,6 @@ public class BinarySearchTree {
         System.out.print(node.value + " ");
     }
 
-    // level order traversal
     public void levelOrder() {
         if (root == null) {
             return;
@@ -103,7 +131,6 @@ public class BinarySearchTree {
         }
     }
 
-    // search for a value in the tree
     public boolean search(int value) {
         return searchRecursive(root, value);
     }
@@ -165,7 +192,6 @@ public class BinarySearchTree {
         return root.left == null ? root.value : findSmallestValue(root.left);
     }
 
-    // convert the tree to a nested map representation
     public Map<String, Object> toTreeStructure() {
         return toTreeStructure(root);
     }
@@ -182,7 +208,6 @@ public class BinarySearchTree {
         return map;
     }
 
-    // print tree using inorder traversal
     public void printTree() {
         inOrder(root);
         System.out.println();

@@ -70,4 +70,31 @@ public class TreeService {
 
         return treeRepository.save(treeToUpdate);
     }
+
+    public Tree processAndBalanceNumbers(List<Integer> numbers) {
+        BinarySearchTree bst = new BinarySearchTree();
+        numbers.forEach(bst::insert);
+
+        // Get the sorted elements from the BST
+        List<Integer> sortedNumbers = bst.inOrderTraversal();
+
+        // Create a balanced BST from sorted numbers
+        BinarySearchTree balancedBst = new BinarySearchTree();
+        balancedBst.buildBalancedTree(sortedNumbers, 0, sortedNumbers.size() - 1);
+
+        try {
+            // Serialize the balanced tree structure
+            String balancedTreeJson = objectMapper.writeValueAsString(balancedBst.toTreeStructure());
+
+            // Save the balanced tree
+            Tree treeEntity = new Tree();
+            treeEntity.setInputNumbers(numbers);
+            treeEntity.setTreeStructure(balancedTreeJson);
+
+            return treeRepository.save(treeEntity);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error processing and balancing numbers: " + e.getMessage(), e);
+        }
+    }
 }

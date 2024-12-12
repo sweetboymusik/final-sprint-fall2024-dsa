@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  @apply text-primary-950;
+}
+
+h1 {
+  @apply text-3xl font-bold;
+}
+
+h2 {
+  @apply text-2xl font-bold;
+}
+
+h3 {
+  @apply text-xl font-bold;
+}
+
+.details-outer {
+  @apply flex flex-col gap-8;
+}
+
+.details-inner {
+  @apply flex flex-col gap-2;
+  width: 700px;
+}
+
+.details-table {
+  @apply flex flex-col gap-2;
+}
+
+.details-nested {
+  @apply flex flex-col gap-4;
+}
+
+.entity-form {
+  @apply flex flex-col gap-2;
+  width: 700px;
+}
+
+select {
+  width: 350px;
+}
+
+.date-picker {
+  min-width: 350px;
+  max-width: 350px;
+  @apply p-2;
+}
+
+.node__root > circle {
+  fill: red;
+}
