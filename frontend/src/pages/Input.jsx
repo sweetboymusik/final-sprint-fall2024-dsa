@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Page from "../components/Page";
+import Button from "../components/Button";
 
 function Input() {
   const [numbers, setNumbers] = useState("");
@@ -26,28 +28,21 @@ function Input() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-2xl font-bold mb-4">Enter Numbers</h1>
-      <textarea
-        className="border rounded p-2 w-1/2 h-24"
-        value={numbers}
-        onChange={(e) => setNumbers(e.target.value)}
-        placeholder="Enter numbers in JSON array format (e.g., [10, 5, 15, 3, 7])"
-      />
-      {error && <p className="text-red-500 mt-2">{error}</p>}
-      <button
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-        onClick={handleSubmit}
-      >
-        Submit
-      </button>
-      <button
-        className="mt-2 px-4 py-2 bg-gray-500 text-white rounded"
-        onClick={() => navigate("/previous-trees")}
-      >
-        View Previous Trees
-      </button>
-    </div>
+    <Page label={"New Tree"}>
+      <>
+        <h2>Enter Numbers</h2>
+        <textarea
+          className="border rounded p-2 w-1/2 h-24"
+          value={numbers}
+          onChange={(e) => setNumbers(e.target.value)}
+          placeholder="Enter numbers in JSON array format (e.g., [10, 5, 15, 3, 7])"
+        />
+
+        {error && <p className="text-red-500 mt-2">{error}</p>}
+
+        <Button label={"Submit"} icon="add" onClick={handleSubmit} />
+      </>
+    </Page>
   );
 }
 

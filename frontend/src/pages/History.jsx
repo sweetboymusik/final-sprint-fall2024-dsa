@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TreeDiagram from "../components/TreeDiagram";
+import Page from "../components/Page";
+import PreviousTreeItem from "../components/PreviousTreeItem";
 
-const HistoryPage = () => {
+function History() {
   const [trees, setTrees] = useState([]);
   const [error, setError] = useState(null);
   const [selectedTree, setSelectedTree] = useState(null);
@@ -23,35 +25,49 @@ const HistoryPage = () => {
     fetchTrees();
   }, []);
 
-  return (
-    <div className="min-h-screen p-4">
-      <h1 className="text-2xl font-bold mb-4">Previous Trees</h1>
-      {error && <p className="text-red-500">{error}</p>}
-      <div className="space-y-4">
-        {trees.map((tree, index) => (
-          <div
-            key={index}
-            className="border rounded p-4 cursor-pointer"
-            onClick={() => setSelectedTree(JSON.parse(tree.treeStructure))}
-          >
-            <p>
-              <strong>Input Numbers:</strong>{" "}
-              {JSON.stringify(tree.inputNumbers)}
-            </p>
-            <p>
-              <strong>Tree Structure:</strong> (Click to view)
-            </p>
-          </div>
-        ))}
-      </div>
-      {selectedTree && (
-        <div className="mt-8">
-          <h2 className="text-xl font-bold">Tree Visualization</h2>
-          <TreeDiagram treeData={selectedTree} />
-        </div>
-      )}
-    </div>
-  );
-};
+  async function handleRemove(treeToRemove) {
+    try {
+      console.log("Tree to remove: ", treeToRemove);
+      await axios.delete(`http://localhost:8080/trees/${treeToRemove?.id}`);
+      setTrees(setTrees.filter((tree) => tree.id !== treeToRemove.id));
+    } catch (error) {
+      setError("Error deleting tree");
+      console.error(error);
+    }
+  }
 
-export default HistoryPage;
+  return (
+    <Page label={"All Trees"}>
+      <div className="flex justify-between gap-16 h-screen">
+        <div className="flex flex-col gap-8 flex-1">
+          <h2>Previous Trees</h2>
+
+          {error && <p className="text-red-500">{error}</p>}
+
+          <div className="space-y-4">
+            {trees.map((tree, index) => (
+              <PreviousTreeItem
+                key={tree.id}
+                tree={tree}
+                index={index}
+                onClick={setSelectedTree}
+                onRemove={handleRemove}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-8 flex-1 h-5/6">
+          <h2>Tree Visualization</h2>
+          {selectedTree && (
+            <div className="border rounded h-full">
+              <TreeDiagram treeData={selectedTree} />
+            </div>
+          )}
+        </div>
+      </div>
+    </Page>
+  );
+}
+
+export default History;

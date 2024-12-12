@@ -51,3 +51,7 @@ select {
   max-width: 350px;
   @apply p-2;
 }
+
+.node__root > circle {
+  fill: red;
+}

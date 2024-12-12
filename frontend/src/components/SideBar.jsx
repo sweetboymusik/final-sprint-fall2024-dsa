@@ -28,7 +28,7 @@ function SideBar() {
 
       <SideBarItem
         icon={<FaPenToSquare />}
-        label={"Add New Tree"}
+        label={"New Tree"}
         to={"/enter-numbers"}
         active={isActive("/enter-numbers")}
       />
@@ -36,7 +36,7 @@ function SideBar() {
 
       <SideBarItem
         icon={<FaDiagramProject />}
-        label={"View Trees"}
+        label={"All Trees"}
         to={"/previous-trees"}
         active={isActive("/previous-trees")}
       />
