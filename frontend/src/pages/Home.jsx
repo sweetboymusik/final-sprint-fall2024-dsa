@@ -30,7 +30,7 @@ function Home() {
           />
           <HeroButton
             icon={<FaDiagramProject />}
-            label={"All Tree"}
+            label={"All Trees"}
             message={viewMessage}
             to={"/previous-trees"}
           />
